@@ -34,7 +34,8 @@ Replace <storage_server_name> and <lsu_name> with the appropriate names. The out
 
 Replace <disk_pool_name> and <storage_server_name> with your actual names.
 
-## Create a Storage Unit (STU): Finally, create a storage unit that uses the newly created disk pool. Use the bpstuadd command.
+## Create a Storage Unit (STU)
+Finally, create a storage unit that uses the newly created disk pool. Use the bpstuadd command.
 ```bash
 /usr/openv/netbackup/bin/admincmd/bpstuadd -label <storage_unit_label> -dp <disk_pool_name> -host <media_server_name> -cj <max_jobs> -mfs <max_fragment_size_KB>
 ```
