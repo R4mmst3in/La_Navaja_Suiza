@@ -1,3 +1,5 @@
+CREATE A PUREDISK VOLUME POOL on NetBackup
+
 To create a PureDisk storage server and volume pool (disk pool) in Veritas NetBackup, follow these steps using the command line:
 
 Create the PureDisk Storage Server: Use the nbdevconfig command to create the storage server. Specify the storage server name, the type (PureDisk), and the media server that will host it.
