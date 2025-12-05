@@ -37,17 +37,17 @@ unset MONGODB_ROOT_PASSWORD POD DATE DUMP_FILE BACKUP_DIR PID
 
 # Desarrollo
 
-De esta forma se haria la copia en el propio POD de mongodb
-export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace mongodb-system  mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
-export POD=$(kubectl get pods -n mongodb-system | tail -n 1 | awk '{print $1}')
-export DATE=`date +"%Y%m%d_%H%M%S"`
-export DUMP_DIR=mongobackup_$DATE
-kubectl exec -i -t -n mongodb-system $POD -- sh -c "mongodump -h 127.0.0.1:27017 -u root -p $MONGODB_ROOT_PASSWORD -o /tmp/$OUT_DIR"
+De esta forma se ejecutaria el script con el propio POD de mongodb<br>
+export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace mongodb-system  mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)<br>
+export POD=$(kubectl get pods -n mongodb-system | tail -n 1 | awk '{print $1}')<br>
+export DATE=`date +"%Y%m%d_%H%M%S"`<br>
+export DUMP_DIR=mongobackup_$DATE<br>
+kubectl exec -i -t -n mongodb-system $POD -- sh -c "mongodump -h 127.0.0.1:27017 -u root -p $MONGODB_ROOT_PASSWORD -o /tmp/$OUT_DIR"<br>
 
-Version 3.2 introduce gzip and archive option:
-mongodump --db <yourdb> --gzip --archive=/path/to/archive
+Version 3.2 introduce gzip and archive option<br>
+mongodump --db <yourdb> --gzip --archive=/path/to/archive<br>
 
 ## PROCESO DE RESTAURACION
 
-Then you can restore with:
+Then you can restore with<br>
 mongorestore --gzip --archive=/path/to/archive
