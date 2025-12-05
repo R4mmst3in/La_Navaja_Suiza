@@ -15,7 +15,8 @@ Script que funciona correctamente
   sudo yum install -y mongodb-database-tools-rhel70-x86_64-100.7.3.rpm
   ```
 
-
+# Codigo
+```bash
 #!/bin/bash
 # Javier Martin Peña
 #
@@ -32,10 +33,9 @@ find $BACKUP_DIR -type f -name "*.gz" -ctime +30 | xargs rm -fr
 mongodump -h 127.0.0.1:27017 -u root -p $MONGODB_ROOT_PASSWORD --gzip --archive=$DUMP_FILE.gz
 kill -9 $PID
 unset MONGODB_ROOT_PASSWORD POD DATE DUMP_FILE BACKUP_DIR PID
+```
 
-
-
-
+# Desarrollo
 
 De esta forma se haria la copia en el propio POD de mongodb
 export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace mongodb-system  mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)
@@ -44,13 +44,10 @@ export DATE=`date +"%Y%m%d_%H%M%S"`
 export DUMP_DIR=mongobackup_$DATE
 kubectl exec -i -t -n mongodb-system $POD -- sh -c "mongodump -h 127.0.0.1:27017 -u root -p $MONGODB_ROOT_PASSWORD -o /tmp/$OUT_DIR"
 
-
-Version 3.2 introduced gzip and archive option:
+Version 3.2 introduce gzip and archive option:
 mongodump --db <yourdb> --gzip --archive=/path/to/archive
+
+## PROCESO DE RESTAURACION
 
 Then you can restore with:
 mongorestore --gzip --archive=/path/to/archive
-
-
-
-PROCESO DE RESTAURACION
